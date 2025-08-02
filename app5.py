@@ -16,8 +16,7 @@ if not st.session_state["authenticated"]:
         st.error("Incorrect password.")
 else:
     # Place ALL your app code INSIDE this block!
-    
-
+ st.write("Welcome to the private app!")   
 
 
 def clean_string(s):
@@ -169,7 +168,6 @@ else:
     st.info("No data to export. Please adjust your filters or search.")
 
 
-st.write("Welcome to the private app!")
 
 
 
