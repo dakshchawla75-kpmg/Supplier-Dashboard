@@ -66,7 +66,7 @@ with left_col:
 with right_col:
     st.markdown("""
                 <div style = padding: 20px; border-radius: 10px; margin-bottom: 10px;display: flex;align-items: center;"></div>""", unsafe_allow_html=True)
-    st.image("assets/logo.jpg",width=100)
+    st.image("logo.jpg",width=100)
 
 # Search and Filters UI
 search = st.text_input("Search", "")
@@ -151,3 +151,4 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
