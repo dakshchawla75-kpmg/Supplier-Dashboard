@@ -17,8 +17,6 @@ else:
     # Your app code here
     st.write("Welcome to the Supplier Dashboard!")
 
-except: 
-st.write("Incorrect Password")
 
 def clean_string(s):
     if s is None:
@@ -167,6 +165,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
