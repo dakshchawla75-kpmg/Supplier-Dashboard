@@ -3,22 +3,11 @@ import polars as pl
 import pandas as pd
 import io
 
-if "authenticated" not in st.session_state:
-    st.session_state["authenticated"] = False
 
-# Show password box if not authenticated
-if not st.session_state["authenticated"]:
-    password = st.text_input("Enter password", type="password")
-    if password == "yoursecret":
-        st.session_state["authenticated"] = True
-        st.experimental_rerun()
-    elif password:
-        st.error("Incorrect password.")
-else:
-    # Place ALL your app code INSIDE this block!
- st.write("Welcome to the private app!")   
-
-
+passowrd = st.text_input("Enter Password to access the dashboard", type ="password")
+if passowrd != "Newjoiner@01":
+    st.stop()
+    
 def clean_string(s):
     if s is None:
         return ""
