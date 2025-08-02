@@ -3,6 +3,10 @@ import polars as pl
 import pandas as pd
 import io
 
+password = st.text_input("Enter password", type = "password")
+if password != "Newjoiner@01":
+    st.stop()
+
 def clean_string(s):
     if s is None:
         return ""
@@ -150,5 +154,6 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
