@@ -6,16 +6,18 @@ import io
 if "authenticated" not in st.session_state:
     st.session_state["authenticated"] = False
 
+# Show password box if not authenticated
 if not st.session_state["authenticated"]:
     password = st.text_input("Enter password", type="password")
-    if password == "Newjoiner@01":
+    if password == "yoursecret":
         st.session_state["authenticated"] = True
         st.experimental_rerun()
-    elif password != "":
+    elif password:
         st.error("Incorrect password.")
 else:
-    # Your app code here
-    st.write("Welcome to the Supplier Dashboard!")
+    # Place ALL your app code INSIDE this block!
+    
+
 
 
 def clean_string(s):
@@ -167,6 +169,7 @@ else:
     st.info("No data to export. Please adjust your filters or search.")
 
 
+st.write("Welcome to the private app!")
 
 
 
