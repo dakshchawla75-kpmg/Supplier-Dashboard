@@ -3,9 +3,22 @@ import polars as pl
 import pandas as pd
 import io
 
-password = st.text_input("Enter password", type = "password")
-if password != "Newjoiner@01":
-    st.stop()
+if "authenticated" not in st.session_state:
+    st.session_state["authenticated"] = False
+
+if not st.session_state["authenticated"]:
+    password = st.text_input("Enter password", type="password")
+    if password == "Newjoiner@01":
+        st.session_state["authenticated"] = True
+        st.experimental_rerun()
+    elif password != "":
+        st.error("Incorrect password.")
+else:
+    # Your app code here
+    st.write("Welcome to the Supplier Dashboard!")
+
+except: 
+st.write("Incorrect Password")
 
 def clean_string(s):
     if s is None:
@@ -62,7 +75,7 @@ left_col, right_col = st.columns([6,1])
 with left_col:
     st.markdown("""
                 <div style = "background-color: white; padding: 20px; border-radius: 10px; margin-bottom: 10px;display: flex;align-items: center;">
-        <span style ='color: #0F1C2E; font-size: 26px; font-weight: bold;'> Supplier Home Page 
+        <span style ='color: #0F1C2E; font-size: 26px; font-weight: bold;'> Supplier Dashboard 
         </div>
 
     """, unsafe_allow_html=True)
@@ -154,6 +167,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
