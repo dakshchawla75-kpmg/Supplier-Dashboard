@@ -20,7 +20,7 @@ def load_data():
         # Clean column names
         df = df.rename({col: col.strip().replace("/", "_").replace(" ", "_") for col in df.columns})
         # Precompute a single search_blob column for fast searching (only ONCE!)
-        str_cols = [col for col in df.columns if df[col].dtype == pl.Utf8]
+        df = df.with_columns([pl.col(col).cast(pl.Utf8) for col in df.columns])
         df = df.with_columns(
             pl.concat_str(str_cols, separator=" ").alias("search_blob")
         )
@@ -156,6 +156,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
