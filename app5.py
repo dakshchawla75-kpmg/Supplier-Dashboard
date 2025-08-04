@@ -104,6 +104,7 @@ if search:
 else:
     filtered_df =df
 
+filtered_pdf = filtered_pdf.to_pandas()
 filtered_pdf = filtered_pdf.drop(columns=["Concat"])
 st.dataframe(filtered_pdf)
 
@@ -158,6 +159,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
