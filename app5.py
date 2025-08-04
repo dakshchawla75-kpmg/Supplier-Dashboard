@@ -29,9 +29,7 @@ def load_data():
     except Exception as e:
         st.error(f"Upload failed: {e}")
         return pl.DataFrame()
-
-
-
+df = load_data()
 def get_options(col):
     return ["All"] + sorted({clean_string(x) for x in df[col].unique() if clean_string(x)})
 
@@ -156,6 +154,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
