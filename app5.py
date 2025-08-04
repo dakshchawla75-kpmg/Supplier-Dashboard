@@ -102,7 +102,6 @@ if search:
         pl.col("Concat").str.to_lowercase().str.contains(search.lower())
     )
 filtered_df_no_concat = filtered_df.drop("Concat")
-st.dataframe(filtered_df_no_concat)
 
 # Each filter: use .str.strip().to_lowercase() (and NEVER .stip or using .str twice)
 if supplierName_filter != "All":
@@ -139,7 +138,7 @@ if Product_filter != "All":
     )
 
 # ---------- Show Table (now up to 2000 rows!) ----------
-st.dataframe(filtered_df.head(4000).to_pandas(), use_container_width=True)
+st.dataframe(filtered_df_no_concat.head(4000).to_pandas(), use_container_width=True)
 
 # ---------- Download Button ----------
 if filtered_df.shape[0] > 0:
@@ -155,6 +154,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
