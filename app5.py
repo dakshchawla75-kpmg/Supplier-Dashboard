@@ -60,7 +60,7 @@ left_col, right_col = st.columns([6,1])
 with left_col:
     st.markdown("""
                 <div style = "background-color: white; padding: 20px; border-radius: 10px; margin-bottom: 10px;display: flex;align-items: center;">
-        <span style ='color: #0F1C2E; font-size: 26px; font-weight: bold;'> Supplier Home Page 
+        <span style ='color: #0F1C2E; font-size: 26px; font-weight: bold;'> Supplier Dashboard 
         </div>
 
     """, unsafe_allow_html=True)
@@ -95,14 +95,6 @@ with col8:
 # ---- FAST FILTERING ----
 
 filtered_df = df
-
-# SEARCH: only on precomputed search_blob, only ONCE!
-if search:
-    filtered_df = filtered_df.filter(
-        pl.col("Concat").str.to_lowercase().str.contains(search.lower())
-    )
-filtered_df_no_concat = filtered_df.drop("Concat")
-
 # Each filter: use .str.strip().to_lowercase() (and NEVER .stip or using .str twice)
 if supplierName_filter != "All":
     filtered_df = filtered_df.filter(
@@ -136,7 +128,12 @@ if Product_filter != "All":
     filtered_df = filtered_df.filter(
         pl.col("Product_Service").str.to_lowercase() == Product_filter
     )
-
+# SEARCH: only on precomputed search_blob, only ONCE!
+if search:
+    filtered_df = filtered_df.filter(
+        pl.col("Concat").str.to_lowercase().str.contains(search.lower())
+    )
+filtered_df_no_concat = filtered_df.drop("Concat")
 # ---------- Show Table (now up to 2000 rows!) ----------
 st.dataframe(filtered_df_no_concat.head(4000).to_pandas(), use_container_width=True)
 
@@ -149,11 +146,12 @@ if filtered_df.shape[0] > 0:
     st.download_button(
         label="Export Search Results",
         data=buffer.getvalue(),
-        file_name="filtered_supplier_data.xlsx",
+        file_name="Supplier_Dashboard_Results.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
