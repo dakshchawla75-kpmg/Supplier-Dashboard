@@ -16,9 +16,9 @@ def clean_string(s):
 @st.cache_data
 def load_data():
     try:
-        df = pl.read_excel("excel.xlsx", dtypes={df.columns[7]:pl.Utf8})  # <-- Change to your file name
+        df = pl.read_excel("excel.xlsx")  # <-- Change to your file name
         # Clean column names
-        
+        df = df.rename({col: col.strip().replace("/", "_").replace(" ", "_") for col in df.columns})
         # Precompute a single search_blob column for fast searching (only ONCE!)
         str_cols = [col for col in df.columns if df[col].dtype == pl.Utf8]
         df = df.with_columns(
@@ -28,19 +28,20 @@ def load_data():
     except Exception as e:
         st.error(f"Upload failed: {e}")
         return pl.DataFrame()
+
 df = load_data()
 
 def get_options(col):
     return ["All"] + sorted({clean_string(x) for x in df[col].unique() if clean_string(x)})
 
-SupplierName_options = get_options("Supplier Name ")
+SupplierName_options = get_options("Supplier_Name")
 City_options = get_options("City")
 State_options = get_options("State")
 Location_options = get_options("Location")
-Category1_options = get_options("Category 1")
-Category2_options = get_options("Category 2")
-Category3_options = get_options("Category 3")
-Product_options = get_options("Product Service")
+Category1_options = get_options("Category_1")
+Category2_options = get_options("Category_2")
+Category3_options = get_options("Category_3")
+Product_options = get_options("Product_Service")
 
 st.set_page_config(page_title="Supplier Dashboard", layout="wide")
 
@@ -62,14 +63,15 @@ left_col, right_col = st.columns([6,1])
 with left_col:
     st.markdown("""
                 <div style = "background-color: white; padding: 20px; border-radius: 10px; margin-bottom: 10px;display: flex;align-items: center;">
-        <span style ='color: #0F1C2E; font-size: 26px; font-weight: bold;'> Supplier Dashboard 
+        <span style ='color: #0F1C2E; font-size: 26px; font-weight: bold;'> Supplier Home Page 
         </div>
 
     """, unsafe_allow_html=True)
 
 with right_col:
-    st.markdown("""<div style = padding: 20px; border-radius: 10px; margin-bottom: 10px;display: flex;align-items: center;"></div>""", unsafe_allow_html=True)
-    st.image("logo.jpg",width=100)
+    st.markdown("""
+                <div style = padding: 20px; border-radius: 10px; margin-bottom: 10px;display: flex;align-items: center;"></div>""", unsafe_allow_html=True)
+    st.image("assets/logo.jpg",width=100)
 
 # Search and Filters UI
 search = st.text_input("Search", "")
@@ -154,6 +156,8 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
+
 
 
 
