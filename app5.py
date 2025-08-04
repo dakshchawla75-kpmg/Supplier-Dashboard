@@ -40,7 +40,7 @@ Category2_options = get_options("Category_2")
 Category3_options = get_options("Category_3")
 Product_options = get_options("Product_Service")
 
-
+st.set_page_config(layout="wide")
 
 st.markdown("""
 <style>
