@@ -18,7 +18,7 @@ def load_data():
     try:
         df = pl.read_excel("excel.xlsx", dtypes={df.columns[7]:pl.Utf8})  # <-- Change to your file name
         # Clean column names
-        df = df.rename({col: col.strip().replace("/", "_").replace(" ", "_") for col in df.columns})
+        
         # Precompute a single search_blob column for fast searching (only ONCE!)
         str_cols = [col for col in df.columns if df[col].dtype == pl.Utf8]
         df = df.with_columns(
@@ -29,17 +29,18 @@ def load_data():
         st.error(f"Upload failed: {e}")
         return pl.DataFrame()
 df = load_data()
+
 def get_options(col):
     return ["All"] + sorted({clean_string(x) for x in df[col].unique() if clean_string(x)})
 
-SupplierName_options = get_options("Supplier_Name_")
+SupplierName_options = get_options("Supplier Name ")
 City_options = get_options("City")
 State_options = get_options("State")
 Location_options = get_options("Location")
-Category1_options = get_options("Category_1")
-Category2_options = get_options("Category_2")
-Category3_options = get_options("Category_3")
-Product_options = get_options("Product_Service")
+Category1_options = get_options("Category 1")
+Category2_options = get_options("Category 2")
+Category3_options = get_options("Category 3")
+Product_options = get_options("Product Service")
 
 st.set_page_config(page_title="Supplier Dashboard", layout="wide")
 
@@ -153,6 +154,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
