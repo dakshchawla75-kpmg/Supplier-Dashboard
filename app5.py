@@ -22,7 +22,7 @@ def load_data():
         # Precompute a single search_blob column for fast searching (only ONCE!)
         df = df.with_columns([pl.col(col).cast(pl.Utf8) for col in df.columns])
         df = df.with_columns(
-            pl.concat_str(str_cols, separator=" ").alias("search_blob")
+            pl.concat_str(df.columns, separator=" ").alias("search_blob")
         )
         return df
     except Exception as e:
@@ -156,6 +156,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
