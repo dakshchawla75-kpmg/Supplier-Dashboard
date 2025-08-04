@@ -16,7 +16,7 @@ def clean_string(s):
 @st.cache_data
 def load_data():
     try:
-        df = pl.read_excel("excel.xlsx")  # <-- Change to your file name
+        df = pl.read_excel("excel.xlsx", dtypes={df.columns[7]:pl.Utf8})  # <-- Change to your file name
         # Clean column names
         df = df.rename({col: col.strip().replace("/", "_").replace(" ", "_") for col in df.columns})
         # Precompute a single search_blob column for fast searching (only ONCE!)
@@ -155,6 +155,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
