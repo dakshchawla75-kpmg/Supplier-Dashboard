@@ -40,7 +40,7 @@ Category2_options = get_options("Category_2")
 Category3_options = get_options("Category_3")
 Product_options = get_options("Product_Service")
 
-st.set_page_config(page_title="Supplier Dashboard", layout="wide")
+
 
 st.markdown("""
 <style>
@@ -151,6 +151,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
