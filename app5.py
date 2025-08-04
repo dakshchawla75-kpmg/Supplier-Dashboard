@@ -15,6 +15,7 @@ def clean_string(s):
 
 @st.cache_data
 def load_data():
+    print(df.columns)
     try:
         df = pl.read_excel("excel.xlsx", dtypes={df.columns[7]:pl.Utf8})  # <-- Change to your file name
         # Clean column names
@@ -155,6 +156,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
