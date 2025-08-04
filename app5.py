@@ -3,6 +3,7 @@ import polars as pl
 import pandas as pd
 import io
 
+st.set_page_config(layout="wide")
 
 passowrd = st.text_input("Enter Password to access the dashboard", type ="password")
 if passowrd != "Newjoiner@01":
@@ -40,7 +41,6 @@ Category2_options = get_options("Category_2")
 Category3_options = get_options("Category_3")
 Product_options = get_options("Product_Service")
 
-st.set_page_config(layout="wide")
 
 st.markdown("""
 <style>
@@ -151,6 +151,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
