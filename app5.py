@@ -32,7 +32,7 @@ df = load_data()
 def get_options(col):
     return ["All"] + sorted({clean_string(x) for x in df[col].unique() if clean_string(x)})
 
-SupplierName_options = get_options("Supplier_Name")
+SupplierName_options = get_options("Supplier Name")
 City_options = get_options("City")
 State_options = get_options("State")
 Location_options = get_options("Location")
@@ -153,6 +153,7 @@ if filtered_df.shape[0] > 0:
     )
 else:
     st.info("No data to export. Please adjust your filters or search.")
+
 
 
 
